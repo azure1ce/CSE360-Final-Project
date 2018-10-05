@@ -10,6 +10,12 @@ public class Path {
 		pathDuration = aDuration;
 	}
 	
+	//methods
+	//get method for pathDuration
+	public getPathDuration(){
+		return pathDuration;
+	}
+	
 	//method to add an activity to the end of the path
 	public void addToPath(String aName, int aDuration){
 		//create a temp variable to point to head of linked list, then traverse to end of linked list
