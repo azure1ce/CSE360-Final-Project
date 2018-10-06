@@ -15,17 +15,14 @@ public class menuPanel extends JPanel {
 	
 public menuPanel() {
 	setBackground(Color.GRAY);
-//	Color buttonColor = new Color(10,10,255);
+
    JLabel label;
     updateUI();
-	a.setLayout(new BoxLayout(a, BoxLayout.Y_AXIS));
+	a.setLayout(new GridLayout(7, 1));
 	 label=new JLabel("Network Analysis ");
-	 JLabel abel2=new JLabel("Please Select an Option to perform");
+	 JLabel label2=new JLabel("Please Select an Option to perform");
 	a.add(label);
-	a.add(abel2);
-	JButton addFirst=new JButton("Add Activity(starting node)");
-  //  addFirst.setBackground(Color.cyan);
-    a.add(addFirst);
+	a.add(label2);
     JButton addActivity=new JButton("add Activity");   
     a.add(addActivity);
     JButton process=new JButton("process"); 
@@ -53,17 +50,6 @@ public menuPanel() {
           String whichButton=event.getActionCommand();
           
           
-          if(whichButton=="Add Activity(starting node)") {
-        	  // add head and add to array you guys should modify this function
-        	remove(a);
-        	updateUI();
-        	addFirst addf=new addFirst();
-        	add(addf);
-        	updateUI();
-        	 
-        	 
-        	 
-          }
           if(whichButton=="add Activity")
           {
         	  remove(a);
