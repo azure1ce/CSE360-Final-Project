@@ -187,20 +187,20 @@ public class Network {
 		for(int i = 0; i < networkPaths.length; i++){
 			//find shortest path duration path
 			if(networkPaths[i] != null){
-				int min = networkPaths[i].getPathDuration();
-				int minIndex = i;
+				int max = networkPaths[i].getPathDuration();
+				int maxIndex = i;
 				for(int j = i; j < networkPaths.length; j++){
 					if(networkPaths[j] != null){
-						if (min > networkPaths[j].getPathDuration()){
-							min = networkPaths[j].getPathDuration();
-							minIndex = j;
+						if (max < networkPaths[j].getPathDuration()){
+							max = networkPaths[j].getPathDuration();
+							maxIndex = j;
 						}
 					}
 				}
 				//swap the paths
 				Path temp = networkPaths[i];
-				networkPaths[i] = networkPaths[minIndex];
-				networkPaths[minIndex] = temp;
+				networkPaths[i] = networkPaths[maxIndex];
+				networkPaths[maxIndex] = temp;
 			}
 		}
 	}

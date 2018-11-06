@@ -39,7 +39,7 @@ public class menuPanel extends JPanel {
 	
 		 // MAIN MENU 
 		 JLabel label;
-		 menu.setLayout(new GridLayout(8,1));
+		 menu.setLayout(new GridLayout(10,1));
 		 label=new JLabel("Network Analysis ");
 		 label.setForeground(Color.RED);
 		 JLabel abel2=new JLabel("Please Select an Option to perform");
@@ -50,6 +50,12 @@ public class menuPanel extends JPanel {
 		 menu.add(addActivity);
 		 JButton button=new JButton("Process"); 
 		 menu.add(button);
+		 JButton critPath=new JButton("Display Critical Path");
+		 menu.add(critPath);
+		 JButton changeDur=new JButton("Change Duration");
+		 menu.add(changeDur);
+		 JButton createRep=new JButton("Create Report");
+		 menu.add(createRep);
 		 JButton restart=new JButton("Restart");
 		 menu.add(restart);
 		 JButton quit=new JButton("Quit");
