@@ -216,7 +216,7 @@ public class menuPanel extends JPanel {
    	this.changeDur.add(newInstr);
    	this.changeDur.add(newInstr2);
    	this.changeDur.add(newInstr3);
-   	
+   	this.changeDur.add(enterMessage);
    	add(this.changeDur); 
    
    	this.changeDur.setVisible(false);
@@ -230,7 +230,7 @@ public class menuPanel extends JPanel {
 	nestedreportPanel.add(createRepn);
 	//getName
 	nestedreportPanel.add(reportname);
-
+    repor.add(enterMessage);
 	this.repor.add(createRepmessage);
 	this.repor.add(nestedreportPanel);
 	JButton createRepbutton1=new JButton("create");
@@ -240,7 +240,7 @@ public class menuPanel extends JPanel {
 	back11.addActionListener(new ButtonListener());
 	this.repor.add(back11);
 	
-	JLabel repnewInstr = new JLabel("Please enter the name of the activity and new duration of that activity ");
+	JLabel repnewInstr = new JLabel("Please enter the name of the activity(NO FILE EXTENSION) and new duration of that activity ");
 //	JLabel repnewInstr3 = new JLabel("after ENTER is pressed, report will be created");
 	this.repor.add(repnewInstr);
 	//this.repor.add(repnewInstr3);
@@ -400,9 +400,13 @@ public class menuPanel extends JPanel {
           if(whichButton=="enter for change") {
         	  
         	  //change duration 
+        	  System.out.println("enter for change is pressed");  //test buttons
         	  errorHandle.setText("");
         	  restartMessage.setText("");
         	  enterMessage.setText("");
+        	  
+        	  
+        	  
         	try {
         	  String activity=durname.getText();
         	  int duration=Integer.parseInt(newdur.getText());
@@ -412,15 +416,21 @@ public class menuPanel extends JPanel {
         	  if(duration <= 0){
         		  errorHandle.setText("Duration must be an integer greater than zero.");
         		  errorHandle.setForeground(Color.red);
+        	  }else {
+        		  
+        		  enterMessage.setText("changed");
         	  }
         	 }catch(Exception e) {
       		  errorHandle.setText("Inputs are not valid. Please Enter Integer For Duration.");
       		  errorHandle.setForeground(Color.RED);
       	  }
-          }
+          }  
           
-          if(whichButton=="create ") {
-        	//  report
+          if(whichButton=="create") {
+        	  //create a text file then write array to it 
+        	 // remember to import java library needed
+        	  System.out.println("create is pressed");  //test
+        	  enterMessage.setText("report generated as TXT");
           }
           
           
