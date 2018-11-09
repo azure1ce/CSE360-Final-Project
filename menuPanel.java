@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.io.*;
 import java.awt.event.*;
 import javax.swing.*;
 //Thing that need to be add
@@ -18,17 +19,27 @@ public class menuPanel extends JPanel {
 	 
 	 JPanel process=new JPanel();
 	 
+	 JPanel critPath=new JPanel();
+	 
+	 JPanel changeDur=new JPanel();
+	 
+	 JPanel repor =new JPanel();
 	 String name;
 	 String[] predecessors;
 	 
 	 Network diagram = new Network(); //creating the network
 	 JTextArea showpath;
+	 JTextArea showcritpath;
 	 Boolean processed = false;
 	 
-	 JTextField t1=new JTextField();   //name
-	 JTextField t111=new JTextField();  //predecessors
-	  JTextField t11=new JTextField();  //duration
-	 JLabel errorHandle=new JLabel();    // error message 
+	 JTextField t1=new JTextField();   //name for add activity
+	 JTextField t111=new JTextField();  //predecessors for add activity
+	 JTextField t11=new JTextField();  //duration  for add activity
+	 JTextField reportname=new JTextField();
+	 JTextField durname=new JTextField(); 
+	 JTextField newdur=new JTextField();
+	 
+	  JLabel errorHandle=new JLabel();    // error message 
 	 JLabel restartMessage = new JLabel();
 	 JLabel enterMessage = new JLabel();
 	 
@@ -39,7 +50,7 @@ public class menuPanel extends JPanel {
 	
 		 // MAIN MENU 
 		 JLabel label;
-		 menu.setLayout(new GridLayout(10,1));
+		 menu.setLayout(new GridLayout(15,1));
 		 label=new JLabel("Network Analysis ");
 		 label.setForeground(Color.RED);
 		 JLabel abel2=new JLabel("Please Select an Option to perform");
@@ -68,7 +79,10 @@ public class menuPanel extends JPanel {
 		 button.addActionListener(new ButtonListener());
 		 restart.addActionListener(new ButtonListener());
 		 quit.addActionListener(new ButtonListener());   
-
+         critPath.addActionListener(new ButtonListener());
+         changeDur.addActionListener(new ButtonListener());
+         createRep.addActionListener(new ButtonListener());
+         
 		 add(menu);
 		 //  add  activity
 		 ///
@@ -140,13 +154,111 @@ public class menuPanel extends JPanel {
     	add(this.process);
     	
         this.process.setVisible(false);
+        
+       //critPath panel
+        
+        JPanel criticalPanel=new JPanel();
+        JPanel l=new JPanel();
+    	JLabel newCriticalPath=new JLabel("Network Diagram Analysis");
+    	JLabel newInstForCriticalPath=new JLabel("Critical Path .");
+    	criticalPanel.setLayout(new BoxLayout(criticalPanel, BoxLayout.Y_AXIS));
+    	l.setLayout(new FlowLayout());
+    	criticalPanel.add(newCriticalPath);
+    	criticalPanel.add(newInstForCriticalPath);
+    	JLabel critLabelPath=new JLabel("critLabelPath:");
+    	showcritpath=new JTextArea();
+    	showcritpath.setEditable(false);
+        //showpath.setPreferredSize(new Dimension(300, 300));
+        JScrollPane critscrollPane = new JScrollPane(showcritpath);
+        critscrollPane.setPreferredSize(new Dimension(300, 300));
+    	//low.add(critLabelPath);
+    	l.add(critscrollPane);
+    	criticalPanel.add(l);
+    	JButton back1=new JButton("back");
+    	back1.addActionListener(new ButtonListener());
+    	criticalPanel.add(back1);
+        this.critPath.add(criticalPanel);
+      
+    	add(this.critPath);
+    	
+        this.critPath.setVisible(false);
+        
+        // changeDur Panel
+        JPanel newb=new JPanel();
+		 this.changeDur.setLayout((new BoxLayout(this.changeDur, BoxLayout.Y_AXIS)));
+		 JLabel changeDurmessage=new  JLabel("Network Diagram Analysis Please enter the information(Changing Duration)");
+		 JLabel changeDurn=new JLabel("Activity Name"); 
+   	JLabel changeDurd=new JLabel("Duration(new)");
+   
+   	newb.setLayout(new GridLayout(3,3));
+   	newb.add(changeDurn);
+   	//getName
+   	newb.add(durname);
 
+   	newb.add(changeDurd);   
+   	//getDuration
+   	newb.add(newdur);
+   //	newb.add(t111);
+   	this.changeDur.add(changeDurmessage);
+   	this.changeDur.add(newb);
+   	JButton changeDurationbutton1=new JButton("enter for change");
+   	changeDurationbutton1.addActionListener(new ButtonListener());
+   	this.changeDur.add(changeDurationbutton1);
+   	JButton changeDurationbutton2=new JButton("back");
+   	changeDurationbutton2.addActionListener(new ButtonListener());
+   	this.changeDur.add(changeDurationbutton2);
+   	this.changeDur.add(enterMessage); // wont affect addPanel's error message
+   	this.changeDur.add(errorHandle);
+   	
+   	JLabel newInstr = new JLabel("Please enter the name of the activity and new duration of that activity ");
+   	JLabel newInstr2 = new JLabel("This is the activity required for modification");
+   	JLabel newInstr3 = new JLabel("after ENTER is pressed, duration is subject to change");
+   	this.changeDur.add(newInstr);
+   	this.changeDur.add(newInstr2);
+   	this.changeDur.add(newInstr3);
+   	this.changeDur.add(enterMessage);
+   	add(this.changeDur); 
+   
+   	this.changeDur.setVisible(false);
+        
+  // createRep 
+    JPanel nestedreportPanel=new JPanel();
+	 this.repor.setLayout((new BoxLayout(this.repor, BoxLayout.Y_AXIS)));
+	 JLabel createRepmessage=new  JLabel("Please enter the title of report(creating report)");
+	 JLabel createRepn=new JLabel("Name of report"); 
+	nestedreportPanel.setLayout(new GridLayout(1,1));
+	nestedreportPanel.add(createRepn);
+	//getName
+	nestedreportPanel.add(reportname);
+    repor.add(enterMessage);
+	this.repor.add(createRepmessage);
+	this.repor.add(nestedreportPanel);
+	JButton createRepbutton1=new JButton("create");
+	createRepbutton1.addActionListener(new ButtonListener());
+	this.repor.add(createRepbutton1);
+	JButton back11=new JButton("back");
+	back11.addActionListener(new ButtonListener());
+	this.repor.add(back11);
+	
+	JLabel repnewInstr = new JLabel("Please enter the name of the activity(NO FILE EXTENSION) and new duration of that activity ");
+//	JLabel repnewInstr3 = new JLabel("after ENTER is pressed, report will be created");
+	this.repor.add(repnewInstr);
+	//this.repor.add(repnewInstr3);
+	
+	add(this.repor); 
+
+	this.repor.setVisible(false);
+   
+   	
 	 }
     
 	 private void back() {
 		 menu.setVisible(true);
 		 add.setVisible(false);
 		 process.setVisible(false);
+		 critPath.setVisible(false);
+		 changeDur.setVisible(false);
+		 repor.setVisible(false);
     	
     }
 	 
@@ -154,14 +266,44 @@ public class menuPanel extends JPanel {
 		 menu.setVisible(false);
 		 add.setVisible(true);
 		 process.setVisible(false);
+		 critPath.setVisible(false);
+		 changeDur.setVisible(false);
+		 repor.setVisible(false);
 	 }
 	 
 	 public void enterProcess() {
 		 menu.setVisible(false);
 		 add.setVisible(false);
 		 process.setVisible(true);   
+		 critPath.setVisible(false);
+		 changeDur.setVisible(false);
+		 repor.setVisible(false);
 	 }
-   
+     public void enterCritPath() {  
+    	 menu.setVisible(false);
+		 add.setVisible(false);
+		 process.setVisible(false); 
+		 critPath.setVisible(true);
+		 changeDur.setVisible(false);
+		 repor.setVisible(false);
+    	 
+     }
+     public void enterchangEDur() {
+    	 menu.setVisible(false);
+		 add.setVisible(false);
+		 process.setVisible(false); 
+		 changeDur.setVisible(true);
+		 critPath.setVisible(false);
+		 repor.setVisible(false);
+     }
+     public void enterCreateRep() {
+    	 menu.setVisible(false);
+		 add.setVisible(false);
+		 process.setVisible(false); 
+		 repor.setVisible(true);
+		 critPath.setVisible(false);
+		 changeDur.setVisible(false);
+     }
 
     
     private class ButtonListener implements ActionListener
@@ -172,7 +314,8 @@ public class menuPanel extends JPanel {
           String whichButton=event.getActionCommand();
 
           if(whichButton=="back") {
-        	  back(); errorHandle.setText("");
+        	  back();
+        	  errorHandle.setText("");
         	  enterMessage.setText("");
           }
           if(whichButton=="Add Activity")
@@ -242,6 +385,56 @@ public class menuPanel extends JPanel {
         	  
         	  
           }
+          
+          if(whichButton=="Display Critical Path") {
+        	  enterCritPath();
+		  showcritpath.setText("eric edit:");
+          }
+          if(whichButton=="Change Duration") {
+        	  enterchangEDur();
+        	  
+          }
+          if(whichButton=="Create Report") {
+        	  enterCreateRep();
+          }
+          
+          if(whichButton=="enter for change") {
+        	  
+        	  //change duration 
+        	  System.out.println("enter for change is pressed");  //test buttons
+        	  errorHandle.setText("");
+        	  restartMessage.setText("");
+        	  enterMessage.setText("");
+        	  
+        	  
+        	  
+        	try {
+        	  String activity=durname.getText();
+        	  int duration=Integer.parseInt(newdur.getText());
+        	 
+        	  
+        	  
+        	  if(duration <= 0){
+        		  errorHandle.setText("Duration must be an integer greater than zero.");
+        		  errorHandle.setForeground(Color.red);
+        	  }else {
+        		  
+        		  enterMessage.setText("changed");
+        	  }
+        	 }catch(Exception e) {
+      		  errorHandle.setText("Inputs are not valid. Please Enter Integer For Duration.");
+      		  errorHandle.setForeground(Color.RED);
+      	  }
+          }  
+          
+          if(whichButton=="create") {
+        	  //create a text file then write array to it 
+        	 // remember to import java library needed
+        	  System.out.println("create is pressed");  //test
+        	  enterMessage.setText("report generated as TXT");
+          }
+          
+          
           if(whichButton=="Restart") {
         	  // implement  restart here
         	  
@@ -256,7 +449,7 @@ public class menuPanel extends JPanel {
         	  
         	  System.exit(1);
           }
-          
+         
           
         	  
         	  
