@@ -388,6 +388,7 @@ public class menuPanel extends JPanel {
           
           if(whichButton=="Display Critical Path") {
         	  enterCritPath();
+		  showcritpath.setText("eric edit:");
           }
           if(whichButton=="Change Duration") {
         	  enterchangEDur();
