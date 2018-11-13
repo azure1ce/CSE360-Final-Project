@@ -376,6 +376,10 @@ public class menuPanel extends JPanel {
         		  diagram.addInput(name, predecessors, duration); 
         		  enterMessage.setText("Activity " + name + " has been added to the network");
         		  enterMessage.setForeground(Color.BLUE);
+        		  
+        		  t1.setText("");
+        		  t11.setText("");
+        		  t111.setText("");
         	  }
         	//  System.out.println("input added for " + name);
         	  //System.out.println(diagram.process());
@@ -458,14 +462,17 @@ public class menuPanel extends JPanel {
         		
         		System.out.println(file.getAbsolutePath()); // test
         		
+        		String fileData = diagram.reportText();
+        		System.out.println(fileData);
+        		
         		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyy HH:mm:ss");
         		Date date = new Date();
         		
         		PrintWriter write = new PrintWriter(file); 
         		write.println("File: " + fileName); // put name of file into file
         		write.println("Time created: " + dateFormat.format(date)); // put date and time into file
-        		write.println("Activities: "); // put activity name and durations into file
-        		write.println("Paths: "); // put paths into file
+        		write.println(" ");
+        		write.println(fileData);
         		write.close();
         		
         		
@@ -473,7 +480,8 @@ public class menuPanel extends JPanel {
         	  
         	  catch(IOException e)
         	  {
-        		  
+        		RepError.setText("File already exists, please enter new name");
+      			RepError.setForeground(Color.RED);
         	  }
         	  
         	  System.out.println("create is pressed");  //test
