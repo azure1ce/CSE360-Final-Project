@@ -1,4 +1,5 @@
 
+
 public class Network {
 
 	private Path[] networkPaths; 
@@ -56,6 +57,10 @@ public class Network {
 			return "There is a cycle in the network activity diagram, please restart program";
 		}
 		
+		//reset networkPaths every time process is called to create new paths
+		for(int i = 0; i < networkPaths.length; i++){
+			networkPaths[i] = null;
+		}
 		
 		this.sortInArray();
 		for(int i = 0; i < inArray.length; i++){
@@ -104,7 +109,91 @@ public class Network {
 		}
 	}
 	
+	//change the duration of an activity
+	public String changeDuration(String aName, int aDuration){
+		//check to make sure activity exists
+		boolean found = false;
+		int index = 0;
+		for(int i = 0; i < inArray.length; i ++){
+			if(inArray[i] != null){
+				if(inArray[i].inName.equals(aName)){
+					found = true; //activity found
+					index = i; //index of activity in array
+				}
+			}
+		}
+		
+		//return error message if not found
+		if(found==false){
+			return "Error: Activity does not exist";
+		}
+		else{ //found
+			inArray[index].inDuration = aDuration;
+			return "Duration for activity changed";
+		}
+	}
 	
+	//function to find and return critical path
+	public String findCritPath(){
+		//error checking
+		if(this.checkEmpty() == true){
+			return "There are no activities in the network, please enter in activities before processing";
+		}
+		if(this.checkOne() == true){
+			return "There is only one activity in the network, please enter in more activities before processing";
+		}
+		if(this.checkStart() == false){
+			return "There either exists no starting activity, or more than one starting activity, please restart program";
+		}
+		else if(this.checkConnection() == false){
+			return "Not all activities are connected, please add in missing activities, or restart program";
+		}
+		else if(this.checkCycle() == true){
+			return "There is a cycle in the network activity diagram, please restart program";
+		}
+		
+		//process the network diagram
+		String processing = this.process();
+		
+		//find shortest path duration
+		int min = networkPaths[0].getPathDuration();
+		for(int i = 0; i < networkPaths.length; i ++){
+			if(networkPaths[i] != null){
+				if(networkPaths[i].getPathDuration() < min){
+					min = networkPaths[i].getPathDuration();
+				}
+			}
+		}
+		
+		//put critical paths into string
+		String message = "Paths:\n";
+		for(int i = 0; i < networkPaths.length; i++){
+			if(networkPaths[i] != null){
+				if(networkPaths[i].getPathDuration() == min){
+					message += "Path " + (i+1) + ": \nDuration: " + networkPaths[i].getPathDuration() + "\n";
+					message += "Activities: " + networkPaths[i].getActivities() + "\n\n";
+				}
+			}
+		}
+		
+		return message;
+	}
+	
+	//create string for report
+	public String reportText(){
+		String reportString = "";
+		
+		reportString += "Activities:\n";
+		for(int i = 0; i < inArray.length; i++){
+			if(inArray[i] != null){
+				reportString += "Name: " + inArray[i].inName + "\n";
+				reportString += "Duration: " + inArray[i].inDuration + "\n";
+			}
+		}
+		reportString += "\n";
+		reportString += this.process();
+		return reportString;
+	}
 	//private methods
 
 	
