@@ -5,7 +5,7 @@ import java.awt.*;
 public class menu extends JApplet{
 
 	
-		private int APPLET_WIDTH = 800, APPLET_HEIGHT = 300;   //Applet Size
+		private int APPLET_WIDTH = 1080, APPLET_HEIGHT = 720;   //Applet Size
 
 		   private JTabbedPane tPane ;
 		   private menuPanel menuPanel1=new menuPanel();    // where the buttons will be
