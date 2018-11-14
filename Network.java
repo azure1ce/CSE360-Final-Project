@@ -1,4 +1,4 @@
-
+import java.util.*;
 
 public class Network {
 
@@ -24,7 +24,26 @@ public class Network {
 	
 	//public methods
 	
-	public void addInput(String aName, String[] aPredecessors, int aDuration){
+	public String addInput(String aName, String[] aPredecessors, int aDuration){
+		//check to see if input already exists
+		for(int i = 0; i < inArray.length; i++){
+			if(inArray[i] != null){
+				if(inArray[i].inName.equals(aName)){
+					return "The activity " + aName + " already exists in the network.";
+				}
+			}
+		}
+		//check to see if another starting activity already exists, if activity to be added is a starting activity
+		if(aPredecessors[0] == null){
+			for(int i = 0; i < inArray.length; i++){
+				if(inArray[i] != null){
+					if(inArray[i].inPredecessors[0] == null){
+						return "Activity was not able to be added, there already exists a starting activity in the network";
+					}
+				}
+			}
+		}
+		
 		int i = 0;
 		this.checkInFull(); //check to make sure array is not full
 		//find empty spot in array
@@ -35,6 +54,14 @@ public class Network {
 		Input newIn = new Input(aName, aPredecessors, aDuration);
 		inArray[i] = newIn;
 		
+		//check for cycle
+		if(this.checkCycle() == true){
+			inArray[i] = null; //remove activity if it would cause cycle
+			return "Activity was not able to be added because it would create a cycle";
+		}
+		else{
+			return "The activity " + aName + " was successfully added";
+		}
 		//this.printInArray(); //FOR TESTING
 	}
 	
@@ -183,11 +210,29 @@ public class Network {
 	public String reportText(){
 		String reportString = "";
 		
-		reportString += "Activities:\n";
+		//get inputs into alphanumeric order
+		//first get name of inputs into array list
+		ArrayList<String> inList = new ArrayList<String>();
 		for(int i = 0; i < inArray.length; i++){
 			if(inArray[i] != null){
-				reportString += "Name: " + inArray[i].inName + "\n";
-				reportString += "Duration: " + inArray[i].inDuration + "\n";
+				inList.add(inArray[i].inName);
+			}
+		}
+		//sort it into alphanumeric order
+		Collections.sort(inList);
+		//System.out.println(inList);
+		
+		//get activities into string
+		reportString += "Activities:\n";
+		for(int i = 0; i < inList.size(); i++){
+			//go through inArray to find activity that matches with activity in arraylist
+			for(int j = 0; j< inArray.length; j++){
+				if(inArray[j] != null){
+					if(inArray[j].inName.equals(inList.get(i))){
+						reportString += "Name: " + inArray[j].inName + "\n";
+						reportString += "Duration: " + inArray[j].inDuration + "\n";
+					}
+				}
 			}
 		}
 		reportString += "\n";

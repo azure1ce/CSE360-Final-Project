@@ -31,7 +31,7 @@ public class menuPanel extends JPanel {
 	Network diagram = new Network(); // creating the network
 	JTextArea showpath;
 	JTextArea showcritpath;
-	Boolean processed = false;
+//	Boolean processed = false;
 
 	JTextField t1 = new JTextField(); // name for add activity
 	JTextField t111 = new JTextField(); // predecessors for add activity
@@ -40,9 +40,13 @@ public class menuPanel extends JPanel {
 	JTextField durname = new JTextField();
 	JTextField newdur = new JTextField();
 
-	JLabel errorHandle = new JLabel(); // error message
-	JLabel restartMessage = new JLabel();
-	JLabel enterMessage = new JLabel();
+	JLabel errorHandle=new JLabel();    // error message 
+	  JLabel errorHandle2=new JLabel(); 
+	 JLabel restartMessage = new JLabel();
+	 JLabel enterMessage = new JLabel();
+	 JLabel enterMessage2 = new JLabel();
+	 JLabel enterMessage3 = new JLabel();
+	
 	JLabel RepError = new JLabel();
 
 	public menuPanel() {
@@ -115,12 +119,9 @@ public class menuPanel extends JPanel {
 		add.add(enterMessage);
 		add.add(errorHandle);
 
-		JLabel instr = new JLabel(
-				"If there are no predecessors, enter in \"none\"(all lowercase) for the predecessor field.");
-		JLabel instr2 = new JLabel(
-				"If there are multiple predecessors seperate them with a \",\"(No spaces between activities and comma).");
-		JLabel instr3 = new JLabel(
-				"For example, predecessors one and two would be inputted as \"one,two\"(Exact spacing)");
+		JLabel instr = new JLabel("If there are no predecessors, enter in \"none\"(all lowercase) for the predecessor field.");
+		JLabel instr2 = new JLabel("If there are multiple predecessors seperate them with a \",\"(No spaces between activities and comma).");
+		JLabel instr3 = new JLabel("For example, predecessors one and two would be inputted as \"one,two\"(Exact spacing)");
 		add.add(instr);
 		add.add(instr2);
 		add.add(instr3);
@@ -188,8 +189,7 @@ public class menuPanel extends JPanel {
 		// changeDur Panel
 		JPanel newb = new JPanel();
 		this.changeDur.setLayout((new BoxLayout(this.changeDur, BoxLayout.Y_AXIS)));
-		JLabel changeDurmessage = new JLabel(
-				"Network Diagram Analysis Please enter the information(Changing Duration)");
+		JLabel changeDurmessage = new JLabel("Network Diagram Analysis Please enter the information(Changing Duration)");
 		JLabel changeDurn = new JLabel("Activity Name");
 		JLabel changeDurd = new JLabel("Duration(new)");
 
@@ -210,8 +210,8 @@ public class menuPanel extends JPanel {
 		JButton changeDurationbutton2 = new JButton("back");
 		changeDurationbutton2.addActionListener(new ButtonListener());
 		this.changeDur.add(changeDurationbutton2);
-		this.changeDur.add(enterMessage); // wont affect addPanel's error message
-		this.changeDur.add(errorHandle);
+		this.changeDur.add(enterMessage2); // wont affect addPanel's error message
+		this.changeDur.add(errorHandle2);
 
 		JLabel newInstr = new JLabel("Please enter the name of the activity and new duration of that activity ");
 		JLabel newInstr2 = new JLabel("This is the activity required for modification");
@@ -219,7 +219,7 @@ public class menuPanel extends JPanel {
 		this.changeDur.add(newInstr);
 		this.changeDur.add(newInstr2);
 		this.changeDur.add(newInstr3);
-		this.changeDur.add(enterMessage);
+		//this.changeDur.add(enterMessage);
 		add(this.changeDur);
 
 		this.changeDur.setVisible(false);
@@ -248,7 +248,7 @@ public class menuPanel extends JPanel {
 //	JLabel repnewInstr3 = new JLabel("after ENTER is pressed, report will be created");
 		this.repor.add(repnewInstr);
 		// this.repor.add(repnewInstr3);
-		repor.add(enterMessage);
+		repor.add(enterMessage3);
 		repor.add(RepError);
 
 		add(this.repor);
@@ -323,12 +323,19 @@ public class menuPanel extends JPanel {
         	  back();
         	  errorHandle.setText("");
         	  enterMessage.setText("");
+        	  restartMessage.setText("");
+        	  enterMessage2.setText("");
+        	  errorHandle2.setText("");
+        	  enterMessage3.setText("");
           }
           if(whichButton=="Add Activity")
           {
         	  errorHandle.setText("");
         	  restartMessage.setText("");
         	  enterMessage.setText("");
+        	  enterMessage2.setText("");
+        	  errorHandle2.setText("");
+        	  enterMessage3.setText("");
           	 enterAdd();	
           	 updateUI();
 
@@ -336,16 +343,19 @@ public class menuPanel extends JPanel {
           }
           if(whichButton=="Process") {
         	  //System.out.println("name currently is " + name);
-        	  if(processed == false){
-        		  showpath.setText(diagram.process());
-        		  processed = true;
-        	  }
-        	  else{
-        		  showpath.setText("Network has already been processed, please restart for a new network");
-        	  }
+        	 // if(processed == false){
+        	  showpath.setText(diagram.process());
+        		 // processed = true;
+        	//  }
+        	//  else{
+        	//	  showpath.setText("Network has already been processed, please restart for a new network");
+        	//  }
         	  errorHandle.setText("");
         	  restartMessage.setText("");
         	  enterMessage.setText("");
+        	  enterMessage2.setText("");
+        	  errorHandle2.setText("");
+        	  enterMessage3.setText("");
         	   enterProcess();
         	   updateUI();
         	   // print array 
@@ -357,6 +367,9 @@ public class menuPanel extends JPanel {
         	  errorHandle.setText("");
         	  restartMessage.setText("");
         	  enterMessage.setText("");
+        	  enterMessage2.setText("");
+        	  errorHandle2.setText("");
+        	  enterMessage3.setText("");
         	  
         	  try {
         	  name=t1.getText();
@@ -373,13 +386,10 @@ public class menuPanel extends JPanel {
         		  errorHandle.setForeground(Color.red);
         	  }
         	  else{
-        		  diagram.addInput(name, predecessors, duration); 
-        		  enterMessage.setText("Activity " + name + " has been added to the network");
-        		  enterMessage.setForeground(Color.BLUE);
         		  
-        		  t1.setText("");
-        		  t11.setText("");
-        		  t111.setText("");
+        		  enterMessage.setText(diagram.addInput(name, predecessors, duration));
+        		  
+        		  enterMessage.setForeground(Color.BLUE);
         	  }
         	//  System.out.println("input added for " + name);
         	  //System.out.println(diagram.process());
@@ -393,12 +403,15 @@ public class menuPanel extends JPanel {
         		  errorHandle.setForeground(Color.RED);
         	  }
         	  
+        	  t1.setText("");
+        	  t11.setText("");
+        	  t111.setText("");
         	  
           }
           
           if(whichButton=="Display Critical Path") {
         	  enterCritPath();
-		  showcritpath.setText("eric edit:");
+        	  showcritpath.setText(diagram.findCritPath());
           }
           if(whichButton=="Change Duration") {
         	  enterchangEDur();
@@ -410,11 +423,14 @@ public class menuPanel extends JPanel {
           
           if(whichButton=="enter for change") {
         	  
-        	  //change duration 
-        	  System.out.println("enter for change is pressed");  //test buttons
+        	//change duration 
+        	  //System.out.println("enter for change is pressed");  //test buttons
         	  errorHandle.setText("");
         	  restartMessage.setText("");
         	  enterMessage.setText("");
+        	  enterMessage2.setText("");
+        	  errorHandle2.setText("");
+        	  enterMessage3.setText("");
         	  
         	  
         	  
@@ -425,16 +441,19 @@ public class menuPanel extends JPanel {
         	  
         	  
         	  if(duration <= 0){
-        		  errorHandle.setText("Duration must be an integer greater than zero.");
-        		  errorHandle.setForeground(Color.red);
+        		  errorHandle2.setText("Duration must be an integer greater than zero.");
+        		  errorHandle2.setForeground(Color.RED);
         	  }else {
         		  
-        		  enterMessage.setText("changed");
+        		  enterMessage2.setText(diagram.changeDuration(activity, duration));
+        		  enterMessage2.setForeground(Color.BLUE);
         	  }
         	 }catch(Exception e) {
-      		  errorHandle.setText("Inputs are not valid. Please Enter Integer For Duration.");
-      		  errorHandle.setForeground(Color.RED);
-      	  }
+        		 errorHandle2.setText("Inputs are not valid. Please Enter Integer For Duration.");
+        		 errorHandle2.setForeground(Color.RED);
+        	 }
+        	durname.setText("");
+        	newdur.setText("");
           }  
           
           if(whichButton=="create") {
@@ -449,8 +468,8 @@ public class menuPanel extends JPanel {
         		{
         		file.createNewFile();
         		RepError.setText(" ");
-        		enterMessage.setText("report generated as TXT and placed into " + file.getAbsolutePath());
-        		enterMessage.setForeground(Color.BLUE);
+        		enterMessage3.setText("Report generated as .txt file and placed into " + file.getAbsolutePath());
+        		enterMessage3.setForeground(Color.BLUE);
         		}
         		
         		else 
@@ -460,20 +479,23 @@ public class menuPanel extends JPanel {
         			RepError.setForeground(Color.RED);
         		} 
         		
-        		System.out.println(file.getAbsolutePath()); // test
+        		//System.out.println(file.getAbsolutePath()); // test
         		
         		String fileData = diagram.reportText();
-        		System.out.println(fileData);
+        		//System.out.println(fileData);
         		
         		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyy HH:mm:ss");
         		Date date = new Date();
         		
         		PrintWriter write = new PrintWriter(file); 
+        		write.println("Network Diagram Analysis Report");
         		write.println("File: " + fileName); // put name of file into file
         		write.println("Time created: " + dateFormat.format(date)); // put date and time into file
         		write.println(" ");
         		write.println(fileData);
         		write.close();
+        		
+        		reportname.setText("");
         		
         		
         	  }
@@ -484,7 +506,7 @@ public class menuPanel extends JPanel {
       			RepError.setForeground(Color.RED);
         	  }
         	  
-        	  System.out.println("create is pressed");  //test
+        	  //System.out.println("create is pressed");  //test
         	  
           }
           
@@ -493,7 +515,7 @@ public class menuPanel extends JPanel {
         	  // implement  restart here
         	  
         	  diagram.restart();
-        	  processed = false;
+        	  //processed = false;
         	  //System.out.println(processed);
         	  restartMessage.setText("The network has been reset.");
         	  
