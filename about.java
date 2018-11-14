@@ -18,7 +18,7 @@ public class about extends JPanel{
 		temp += "The paths will listed based on the duration, with the first paths being the ones with the shortest duration.\n\n";
 		temp += "The team that created this program are students from Arizona State University.\n";
 		temp += "This was created as a project for the CSE360 course at ASU.\n";
-		temp += "The programmers are: Zachary Simmons, Eric Tan, Jingming Tan, Zhiheng Zhang.";
+		temp += "The programmers are: Zachary Simmons, Eric Tan, Jingming Tan, Zhiheng Zhang.\n\nVersion: 2";
 		about1.setText(temp);
 		
 		add(about1);
