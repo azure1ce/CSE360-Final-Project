@@ -182,21 +182,23 @@ public class Network {
 		//process the network diagram
 		String processing = this.process();
 		
-		//find shortest path duration
-		int min = networkPaths[0].getPathDuration();
+		//find longest path duration
+		int max = networkPaths[0].getPathDuration();
 		for(int i = 0; i < networkPaths.length; i ++){
 			if(networkPaths[i] != null){
-				if(networkPaths[i].getPathDuration() < min){
-					min = networkPaths[i].getPathDuration();
+				if(networkPaths[i].getPathDuration() > max){
+					max = networkPaths[i].getPathDuration();
 				}
 			}
 		}
+		
+		
 		
 		//put critical paths into string
 		String message = "Paths:\n";
 		for(int i = 0; i < networkPaths.length; i++){
 			if(networkPaths[i] != null){
-				if(networkPaths[i].getPathDuration() == min){
+				if(networkPaths[i].getPathDuration() == max){
 					message += "Path " + (i+1) + ": \nDuration: " + networkPaths[i].getPathDuration() + "\n";
 					message += "Activities: " + networkPaths[i].getActivities() + "\n\n";
 				}
